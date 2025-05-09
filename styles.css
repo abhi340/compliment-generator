@@ -1,0 +1,127 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    margin: 0;
+    display: flex;
+    flex-direction: column; 
+    background-color: #1a1d22; /* Dark background */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden; /* Prevent scrollbars from the glow spot or modal */
+    position: relative; /* Needed for z-indexing context if spot wasn't fixed */
+    /* Ensure particles are behind everything by default */
+}
+
+.container {
+    /* Glassmorphism for the container */
+    background: rgba(37, 42, 49, 0.55); /* Semi-transparent background - adjust alpha */
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%); /* Safari support */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    max-width: 500px; /* Limit maximum width on larger screens */
+    position: relative;
+    z-index: 10; /* Ensure container is above particles */
+    border: 1px solid #333842; /* Subtle border for definition */
+}
+
+h1 {
+    color: #e1e1e1; /* Light text color for heading */
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+button {
+    background-color: #00c6ff; /* Vibrant Cyan Accent */
+    color: #1a1d22; /* Dark text on bright button for contrast */
+    border: none;
+    padding: 15px 30px; /* Slightly larger padding for touch targets */
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform for subtle interaction */
+}
+
+button:hover {
+    background-color: #00a5d9; /* Slightly darker cyan for hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Styles for the compliment text when displayed directly in the container */
+.container-compliment-text {
+    margin-top: 25px;
+    font-size: 1.3rem;
+    color: #c5c5c5; /* Lighter text for compliment */
+    word-wrap: break-word;
+    padding: 10px;
+    min-height: 50px; /* To prevent layout jump */
+    display: none; /* Hidden by default, shown by JS */
+}
+
+/* Styles for individual particles */
+.particle {
+    position: fixed; /* Positioned relative to the viewport */
+    border-radius: 50%;
+    background-color: rgba(0, 198, 255, 0.3); /* Particle color - using the accent */
+    pointer-events: none; /* So they don't interfere with mouse events */
+    z-index: 1; /* Behind the container, but above the body's direct background */
+    opacity: 0;
+    transition: opacity 0.5s ease-out; /* For fading in/out if needed */
+    transform: translate(-50%, -50%); /* Center the spot on the cursor */
+    will-change: transform, opacity;
+    /* Varying sizes will be set by JS */
+}
+
+/* Remove Modal Styles as they are no longer used */
+/*
+.modal-overlay { ... }
+.modal-overlay.visible { ... }
+.modal-content { ... }
+.compliment-text-modal { ... }
+.modal-close-button { ... }
+*/
+
+/* Basic Media Query for smaller screens (e.g., phones) */
+@media (max-width: 600px) {
+    body {
+        padding: 10px; /* Reduce body padding on smaller screens */
+        background-color: #121417; /* Slightly darker base for mobile if needed */
+    }
+
+    .container {
+        width: 95%; /* Take up more width on smaller screens */
+        padding: 20px 15px; /* Adjust padding, especially horizontal */
+        background: rgba(37, 42, 49, 0.7); /* Slightly less transparent on mobile if backdrop-filter is heavy */
+        backdrop-filter: blur(8px) saturate(120%);
+        -webkit-backdrop-filter: blur(8px) saturate(120%);
+
+    }
+
+    h1 {
+        font-size: 1.6rem; /* Slightly smaller heading */
+    }
+
+    button {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+
+    .compliment-text {
+        font-size: 1.1rem;
+    }
+    .cursor-glow-spot { /* Make spot even smaller on mobile */
+        width: 180px;
+        height: 180px;
+        filter: blur(40px);
+    }
+    .modal-content {
+        padding: 25px;
+        width: 90%;
+        font-size: 0.9rem;
+    }
+}
